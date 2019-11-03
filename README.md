@@ -8,8 +8,8 @@
  - checking of chambers
  - resetting/randomizing
  
- ---
+---
  
- ### By Jacob Stelmachowske.  
+### By Jacob Stelmachowske.  
  
- #### Uses WheelView library by Luke Deighton [https://github.com/LukeDeighton/WheelView]
+#### Uses WheelView library by Luke Deighton [https://github.com/LukeDeighton/WheelView]
