@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
         final WheelView wheelView = (WheelView) findViewById(R.id.wheelview);
         final Button fire_button = findViewById(R.id.fire_button);
         final Button reset_button = findViewById(R.id.reset_button);
+        final Button menu_button = findViewById(R.id.menu_button);
         final int loss = losingItem();
 
 
@@ -39,6 +40,7 @@ public class MainActivity extends Activity {
         List<Map.Entry<String, Integer>> entries = new ArrayList<Map.Entry<String, Integer>>(ITEM_COUNT);
         for (int i = 0; i < ITEM_COUNT; i++) {
             Map.Entry<String, Integer> entry = MaterialColor.random(this, "\\D*_500$");
+
             entries.add(entry);
         }
 
@@ -88,6 +90,17 @@ public class MainActivity extends Activity {
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
+            }
+        });
+
+        menu_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+//                EditText editText = (EditText) findViewById(R.id.editText);
+//                String message = editText.getText().toString();
+                startActivity(intent);
+
             }
         });
 
