@@ -15,7 +15,7 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BRUHssian Roulette"
+        android:text="BRUHssian Roulette -- KOTLIN"
         android:layout_above="@id/play_button"
         android:layout_centerHorizontal="true"
         android:textSize="25sp" />

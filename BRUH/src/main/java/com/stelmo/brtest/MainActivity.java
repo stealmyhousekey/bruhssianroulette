@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
         menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
 //                EditText editText = (EditText) findViewById(R.id.editText);
 //                String message = editText.getText().toString();
                 startActivity(intent);
