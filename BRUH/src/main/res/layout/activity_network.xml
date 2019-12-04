@@ -15,13 +15,21 @@ android:layout_height="fill_parent">
         android:id="@+id/TEXT_STATUS_ID"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1.0"/>
+        android:layout_weight="1.0"
+        android:textColor="@color/grey_1000"/>
 </ScrollView>
 <Button
-    android:id="@+id/n_menu_button"
+    android:id="@+id/poll_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_below="@+id/SCROLLER_ID"
-    android:text="MENU" />
+    android:text="POLL PEERS" />
+
+    <Button
+        android:id="@+id/n_menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/poll_button"
+        android:text="MENU" />
 
 </LinearLayout>

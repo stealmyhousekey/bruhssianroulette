@@ -6,6 +6,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.p2p.WifiP2pManager
 import android.util.Log
+import android.widget.Toast
+import java.nio.file.Files.size
+import android.net.wifi.p2p.WifiP2pDeviceList
+
+
 
 /**
  * A BroadcastReceiver that notifies of important Wi-Fi p2p events.
@@ -21,20 +26,27 @@ class WiFiDirectBroadcastReceiver(
         val action: String = intent.action
         when (action) {
             WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -> {
-                // Check to see if Wi-Fi is enabled and notify appropriate activity
                 val state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1)
-                when (state) {
-                    WifiP2pManager.WIFI_P2P_STATE_ENABLED -> {
-                        // Wifi P2P is enabled
-                    }
-                    else -> {
-                        // Wi-Fi P2P is not enabled
-                    }
+                if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
+                    // Wifi Direct mode is enabled
+                    Toast.makeText(context, "WIFI IS ENABLED", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "WIFI IS DISABLED", Toast.LENGTH_SHORT).show()
+
                 }
             }
             WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -> {
-                // Call WifiP2pManager.requestPeers() to get a list of current peers
-//                manager?.requestPeers(channel, activity.fragmentManager.getFragment() as WifiP2pManager.PeerListListener)
+                if (manager != null) {
+                   //
+                    manager?.requestPeers(channel) { peers ->
+                        // YOU CAN GET ACCESS TO ALL THE DEVICES YOU FOUND FROM peers OBJECT
+                        if(!peers.deviceList.isEmpty()) {
+                            val firstpeer = peers.deviceList.first().deviceName
+                            Toast.makeText(context, firstpeer, Toast.LENGTH_LONG)
+                        }
+                        
+                    }
+                }
             }
             WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -> {
                 // Respond to new connection or disconnections

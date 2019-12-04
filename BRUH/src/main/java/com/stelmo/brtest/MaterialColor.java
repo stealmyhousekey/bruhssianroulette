@@ -1,6 +1,10 @@
 package com.stelmo.brtest;
 
 import android.content.Context;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +22,7 @@ public class MaterialColor {
     private static HashMap<String, Integer> getMaterialColors(Context context) {
         Field[] fields = R.color.class.getFields();
         HashMap<String, Integer> materialHashMap = new HashMap<String, Integer>(fields.length);
-        for(Field field : fields) {
+        for (Field field : fields) {
             if (field.getType() != int.class) continue;
 
             String fieldName = field.getName(); //prone to errors but okay for a sample!
@@ -42,7 +46,7 @@ public class MaterialColor {
 
         Pattern pattern = Pattern.compile(regex);
         List<Map.Entry<String, Integer>> materialColors = new ArrayList<Map.Entry<String, Integer>>();
-        for(Map.Entry<String, Integer> entry : sMaterialHashMap.entrySet()) {
+        for (Map.Entry<String, Integer> entry : sMaterialHashMap.entrySet()) {
             if (!pattern.matcher(entry.getKey()).matches()) continue;
             materialColors.add(entry);
         }
@@ -55,7 +59,7 @@ public class MaterialColor {
         return sMaterialHashMap.get(colourName + "_700");
     }
 
-    public static String getColorName(Map.Entry<String, Integer> entry) {
+    public static String getColorName(@NotNull Map.Entry<String, Integer> entry) {
         String color = entry.getKey();
         Matcher matcher = sColorPattern.matcher(color);
         if (matcher.find()) {
@@ -64,3 +68,4 @@ public class MaterialColor {
         return null;
     }
 }
+
