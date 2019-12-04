@@ -33,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
 //        }
 
         settingsButton.setOnClickListener{
-            val intent = Intent(baseContext, MainActivity::class.java)
+            val intent = Intent(baseContext, SettingsActivity::class.java)
             startActivity(intent)
         }
 

@@ -1,7 +1,10 @@
 package com.stelmo.brtest
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.ShapeDrawable
@@ -11,13 +14,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import com.stelmo.wheelview.WheelView
 import com.stelmo.wheelview.adapter.WheelArrayAdapter
+import kotlinx.android.synthetic.main.custom_dialog.*
 
 import java.util.ArrayList
 import java.util.Random
-import java.util.Map.Entry
 
 class MainActivity : Activity() {
 
@@ -62,10 +66,12 @@ class MainActivity : Activity() {
 
         fire_button.setOnClickListener {
             wheelView.stopWheel()
-            if (wheelView.selectedPosition == loss)
-                Toast.makeText(applicationContext, "*BANGU*", Toast.LENGTH_LONG).show()//display the text of button1
+            if (wheelView.selectedPosition == loss){
+                //Toast.makeText(applicationContext, "*BANG*", Toast.LENGTH_LONG).show()//display the text of button1
+                showDialog()
+            }
             else
-                Toast.makeText(applicationContext, "*clicko*", Toast.LENGTH_LONG).show()//display the text of button1
+                Toast.makeText(applicationContext, "*click*", Toast.LENGTH_LONG).show()//display the text of button1
         }
 
 
@@ -125,8 +131,26 @@ class MainActivity : Activity() {
         }
     }
 
-    companion object {
+    private fun showDialog() {
+        // custom dialog
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog)
 
+        // set the custom dialog components - text, image and button
+        val close = dialog.findViewById(R.id.btnClose) as ImageButton
+
+        // Close Button
+        close.setOnClickListener {
+            dialog.dismiss()
+            //TODO Close button action
+        }
+        dialog.getWindow().setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+    companion object {
         private val ITEM_COUNT = 6
     }
 }
+
+

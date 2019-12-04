@@ -30,7 +30,8 @@ public class TextDrawable extends Drawable {
     @Override
     public void draw(Canvas canvas) {
         Rect bounds = getBounds();
-        canvas.drawText(text, bounds.centerX() - 15f /*just a lazy attempt to centre the text*/ * text.length(), bounds.centerY() + 15f, paint);
+        //no text, but leaving for debugging
+        //canvas.drawText(text, bounds.centerX() - 15f /*just a lazy attempt to centre the text*/ * text.length(), bounds.centerY() + 15f, paint);
     }
 
     @Override
