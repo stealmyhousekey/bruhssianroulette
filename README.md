@@ -1,12 +1,12 @@
 # BRUHssian Roulette
-## Version: Placemark
+## Version: Pre-Pre-Alpha
 
 ---
 
 ### Features:
- - placemark level RR implementation
- - checking of chambers
- - resetting/randomizing
+ - singleplayer RR experience
+ - extremely barebones wifip2p networking implementation
+ - working menus and transitions
  
 ---
  
