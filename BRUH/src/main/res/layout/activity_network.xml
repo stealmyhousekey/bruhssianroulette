@@ -4,26 +4,11 @@ android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent">
 
-<ScrollView
-    android:id="@+id/SCROLLER_ID"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="vertical"
-    android:fillViewport="true">
-
-    <TextView
-        android:id="@+id/TEXT_STATUS_ID"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1.0"
-        android:textColor="@color/grey_1000"/>
-</ScrollView>
-<Button
-    android:id="@+id/poll_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/SCROLLER_ID"
-    android:text="POLL PEERS" />
+    <Button
+        android:id="@+id/poll_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POLL PEERS" />
 
     <Button
         android:id="@+id/n_menu_button"
@@ -31,5 +16,16 @@ android:layout_height="fill_parent">
         android:layout_height="wrap_content"
         android:layout_below="@+id/poll_button"
         android:text="MENU" />
+
+    <TextView
+        android:id="@+id/TEXT_STATUS_ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/n_menu_button"
+        android:layout_centerInParent="true"
+        android:layout_weight="1.0"
+        android:gravity="center_horizontal"
+        android:textColor="@color/grey_1000"
+        android:textSize="20sp" />
 
 </LinearLayout>
