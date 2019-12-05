@@ -1,33 +1,53 @@
 package com.stelmo.brtest
 
+import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.os.Handler
+import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import com.stelmo.wheelview.WheelView
 import com.stelmo.wheelview.adapter.WheelArrayAdapter
 import kotlinx.android.synthetic.main.custom_dialog.*
+import java.io.File
 
 import java.util.ArrayList
 import java.util.Random
 
 class MainActivity : Activity() {
 
+    var handler = Handler()
+    var counter = 0
+    private var mImageView: ImageView? = null
+    private var currentBitmap: Bitmap? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        isReadStoragePermissionGranted()
 
         val wheelView = findViewById<View>(R.id.wheelview) as WheelView
         val fire_button = findViewById<Button>(R.id.fire_button)
@@ -83,8 +103,6 @@ class MainActivity : Activity() {
 
         menu_button.setOnClickListener {
             val intent = Intent(baseContext, HomeActivity::class.java)
-            //                EditText editText = (EditText) findViewById(R.id.editText);
-            //                String message = editText.getText().toString();
             startActivity(intent)
         }
 
@@ -93,7 +111,7 @@ class MainActivity : Activity() {
 
     }
 
-    // select a losing value TODO also select image from the losing player's gallery
+    // select a losing value
     fun losingItem(): Int {
         val r = Random()
         return r.nextInt(6)
@@ -131,26 +149,76 @@ class MainActivity : Activity() {
         }
     }
 
+    //image popup handler
     private fun showDialog() {
+
         // custom dialog
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.custom_dialog)
 
+        //random image from gallery TODO make it actually swap the image
+
         // set the custom dialog components - text, image and button
         val close = dialog.findViewById(R.id.btnClose) as ImageButton
 
-        // Close Button
+        // dialog close button. also resets game after closing
         close.setOnClickListener {
             dialog.dismiss()
-            //TODO Close button action
+            val intent = intent
+            finish()
+            startActivity(intent)
         }
         dialog.getWindow().setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
+    }
+
+    //TODO make select a random image WHY WON'T YOU WORK
+    fun getRandomImage(){
+        val picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        val listFiles = picturesDirectory.listFiles()
+        val r = Random()
+        val randomPicture = listFiles[r.nextInt(listFiles.size)];
+        val pictureUri = Uri.fromFile(randomPicture);
+        val f = File(getRealPathFromURI(pictureUri));
+        val d = Drawable.createFromPath(f.getAbsolutePath());
+        val image = findViewById(R.id.random_image) as? ImageView
+        image?.background = d;
+    }
+
+    //checks and requests device read perms
+    fun isReadStoragePermissionGranted(): Boolean {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true
+            } else {
+                ActivityCompat.requestPermissions(this, arrayOf<String>(Manifest.permission.READ_EXTERNAL_STORAGE), 3)
+                return false
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            return true
+        }
+    }
+
+    private fun getRealPathFromURI(contentURI:Uri):String {
+        val cursor = getContentResolver().query(contentURI, null, null, null, null)
+        if (cursor == null)
+        { // Source is Dropbox or other similar local file path
+            return contentURI.getPath()
+        }
+        else
+        {
+            cursor.moveToFirst()
+            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            return cursor.getString(idx)
+        }
     }
 
     companion object {
         private val ITEM_COUNT = 6
     }
 }
+
 
 
