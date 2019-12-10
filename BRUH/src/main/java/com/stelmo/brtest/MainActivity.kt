@@ -6,7 +6,6 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -20,7 +19,6 @@ import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -30,7 +28,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.stelmo.wheelview.WheelView
 import com.stelmo.wheelview.adapter.WheelArrayAdapter
-import kotlinx.android.synthetic.main.custom_dialog.*
 import java.io.File
 
 import java.util.ArrayList
