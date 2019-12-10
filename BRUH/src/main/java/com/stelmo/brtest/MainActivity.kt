@@ -45,7 +45,6 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        getRandomImage()
         isReadStoragePermissionGranted()
 
         val wheelView = findViewById<View>(R.id.wheelview) as WheelView
@@ -87,7 +86,8 @@ class MainActivity : Activity() {
             wheelView.stopWheel()
             if (wheelView.selectedPosition == loss){
                 //Toast.makeText(applicationContext, "*BANG*", Toast.LENGTH_LONG).show()//display the text of button1
-                showDialog()
+                //showDialog()
+                getRandomImage()
             }
             else
                 Toast.makeText(applicationContext, "*click*", Toast.LENGTH_LONG).show()//display the text of button1
@@ -198,7 +198,7 @@ class MainActivity : Activity() {
 
         //val f = File(getRealPathFromURI(pictureUri))
         //val d = Drawable.createFromPath(pictureUri)
-        val image = findViewById(R.id.random_image) as? ImageView
+        val image = findViewById(R.id.iv_main) as? ImageView
         //image?.background = d
         image?.setImageURI(null)
         image?.setImageURI(pictureUri)

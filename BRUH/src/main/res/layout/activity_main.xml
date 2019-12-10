@@ -5,8 +5,9 @@
 
     <com.stelmo.wheelview.WheelView
         android:id="@+id/wheelview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         app:emptyItemColor="@color/green_900"
         app:repeatItems="true"
         app:rotatableWheelDrawable="false"
@@ -40,6 +41,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/reset_button"
         android:text="MENU" />
+
+    <ImageView
+        android:id="@+id/iv_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wheelview"
+        app:srcCompat="@drawable/ic_launcher" />
 
 
 </RelativeLayout>
