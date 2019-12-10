@@ -40,10 +40,12 @@ class MainActivity : Activity() {
     private var mImageView: ImageView? = null
     private var currentBitmap: Bitmap? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        getRandomImage()
         isReadStoragePermissionGranted()
 
         val wheelView = findViewById<View>(R.id.wheelview) as WheelView
@@ -171,15 +173,36 @@ class MainActivity : Activity() {
 
     //TODO make select a random image WHY WON'T YOU WORK
     fun getRandomImage(){
-        val picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        //val picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        var dirName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+        var listOfFiles = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).list()
+        var picturesDirectory = File(dirName)
         val listFiles = picturesDirectory.listFiles()
+
+
+//        for (file in listFiles)
+//        {
+//            System.out.println("file: " + file.getCanonicalPath())
+//        }
+
+
         val r = Random()
-        val randomPicture = listFiles[r.nextInt(listFiles.size)];
-        val pictureUri = Uri.fromFile(randomPicture);
-        val f = File(getRealPathFromURI(pictureUri));
-        val d = Drawable.createFromPath(f.getAbsolutePath());
+        val randomPicture = listFiles[r.nextInt(listFiles.size)]
+        val pictureUri = Uri.fromFile(randomPicture)
+
+        System.out.println("chosen file: " + randomPicture.toString())
+        System.out.println("file uri: " + pictureUri)
+
+
+        var bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), pictureUri)
+
+        //val f = File(getRealPathFromURI(pictureUri))
+        //val d = Drawable.createFromPath(pictureUri)
         val image = findViewById(R.id.random_image) as? ImageView
-        image?.background = d;
+        //image?.background = d
+        image?.setImageURI(null)
+        image?.setImageURI(pictureUri)
+
     }
 
     //checks and requests device read perms
