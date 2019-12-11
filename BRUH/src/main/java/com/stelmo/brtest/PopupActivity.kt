@@ -37,9 +37,14 @@ class PopupActivity : AppCompatActivity() {
 
     fun getRandomImage(): Uri? {
         var dirName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
-        dirName += "/Camera/" //use pics from camera TODO read from more folders
+        dirName += "/Camera/" //use pics from camera
         var picturesDirectory = File(dirName)
-        val listFiles = picturesDirectory.listFiles()
+        var listFiles = picturesDirectory.listFiles()
+
+        dirName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath
+        dirName += "/Screenshots/" //use pics from screenshots TODO read from more folders
+        picturesDirectory = File(dirName)
+        listFiles += picturesDirectory.listFiles()
 
         val allowedExtensions = arrayOf<String>("jpg", "png", "gif", "jpeg")
 
@@ -60,7 +65,7 @@ class PopupActivity : AppCompatActivity() {
         System.out.println("chosen file: " + randomPicture.toString())
         System.out.println("file uri: " + pictureUri)
 
-        return pictureUri
+        return pictureUri //TODO make sure picture isn't null, and also make typecheck work
     }
 
 }

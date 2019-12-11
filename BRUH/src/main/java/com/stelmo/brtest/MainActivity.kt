@@ -32,6 +32,7 @@ import java.util.Random
 
 class MainActivity : Activity() {
 
+    //track player wins and losses
     var winCounter = 0
     var lossCounter = 0
 
