@@ -9,42 +9,36 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import java.io.File
+import java.io.IOException
 import java.util.*
 
 class PopupActivity : AppCompatActivity() {
+    val picList = mutableListOf<File>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_popup)
         var rando = getRandomImage()
         val image = findViewById(R.id.popup_iv) as? ImageView
-        //image?.background = d
         image?.setImageURI(null)
         image?.setImageURI(rando)
 
-
         val closeButton = findViewById(R.id.popup_btnClose) as ImageButton
-
 
         closeButton.setOnClickListener{
             val intent = intent
             finish()
         }
-
-
     }
 
-
+    //pull random image from user's device (currently pulling from /DCIM/ and subdirectories)
     fun getRandomImage(): Uri? {
+        //root directory
         var dirName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
-        dirName += "/Camera/" //use pics from camera
-        var picturesDirectory = File(dirName)
-        var listFiles = picturesDirectory.listFiles()
 
-        dirName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath
-        dirName += "/Screenshots/" //use pics from screenshots TODO read from more folders
-        picturesDirectory = File(dirName)
-        listFiles += picturesDirectory.listFiles()
+        //subdirectory walking
+        var picturesDirectory = File(dirName)
+        var listFiles = displayDirectoryContents(picturesDirectory)
 
         val allowedExtensions = arrayOf<String>("jpg", "png", "gif", "jpeg")
 
@@ -65,7 +59,36 @@ class PopupActivity : AppCompatActivity() {
         System.out.println("chosen file: " + randomPicture.toString())
         System.out.println("file uri: " + pictureUri)
 
-        return pictureUri //TODO make sure picture isn't null, and also make typecheck work
+        return pictureUri
+    }
+
+    //walk through (sub)directories and return list of all files
+    fun displayDirectoryContents(dir: File): MutableList<File> {
+        var i = 0 //counter var
+        try {
+            val files = dir.listFiles()
+            for (file in files) {
+                if (file.isDirectory()) {
+                    if(!file.name.contains(".thumbnails")){
+                        displayDirectoryContents(file)
+                    }
+
+                } else {
+                    if(!picList.contains(file)) //don't add duplicates
+                        picList += file
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        for(files in picList){
+            //println(files.canonicalPath)
+            i++
+        }
+        println("Total number of files found: " + i)
+        return picList
+
     }
 
 }
