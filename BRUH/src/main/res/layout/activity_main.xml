@@ -42,12 +42,25 @@
         android:layout_below="@id/reset_button"
         android:text="MENU" />
 
-    <ImageView
-        android:id="@+id/iv_main"
+    <TextView
+        android:id="@+id/winStats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/wheelview"
-        app:srcCompat="@drawable/ic_launcher" />
+        android:layout_centerHorizontal="true"
+        android:text="Wins: 0"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/lossStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/winStats"
+        android:layout_centerHorizontal="true"
+        android:text="Losses: 0"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
 
 </RelativeLayout>

@@ -22,10 +22,7 @@ import android.support.v4.app.ActivityCompat
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import com.stelmo.wheelview.WheelView
 import com.stelmo.wheelview.adapter.WheelArrayAdapter
 import java.io.File
@@ -35,15 +32,28 @@ import java.util.Random
 
 class MainActivity : Activity() {
 
-    var handler = Handler()
-    var counter = 0
-    private var mImageView: ImageView? = null
-    private var currentBitmap: Bitmap? = null
-
+    var winCounter = 0
+    var lossCounter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //var randomImage = getRandomImage()
+
+        var i = intent
+        if(i.extras != null){
+            winCounter += i.getIntExtra("wc", 0)
+            lossCounter +=  i.getIntExtra("lc", 0)
+        }
+
+        var winView = findViewById(R.id.winStats) as TextView
+        winView.setText("Wins: " + winCounter)
+
+        var lossView = findViewById(R.id.lossStats) as TextView
+        lossView.setText("Losses: " + lossCounter)
+
+        System.out.println("Wins: " + winCounter)
+        System.out.println("Losses: " + lossCounter)
 
         isReadStoragePermissionGranted()
 
@@ -51,6 +61,7 @@ class MainActivity : Activity() {
         val fire_button = findViewById<Button>(R.id.fire_button)
         val reset_button = findViewById<Button>(R.id.reset_button)
         val menu_button = findViewById<Button>(R.id.menu_button)
+        var wonSlots = mutableListOf<Int>()
         val loss = losingItem()
 
 
@@ -71,31 +82,57 @@ class MainActivity : Activity() {
             parent.setSelectionColor(getContrastColor(selectedEntry))
         }
 
+        //used to debug
         wheelView.onWheelItemClickListener = WheelView.OnWheelItemClickListener { parent, position, isSelected ->
-            val msg: String
-
-            if (position == loss)
-                msg = "Loaded"
-            else
-                msg = "Empty"
-
-            Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
+//            val msg: String
+//
+//            if (position == loss)
+//                msg = "Loaded"
+//            else
+//                msg = "Safe"
+//
+//            Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
         }
 
         fire_button.setOnClickListener {
             wheelView.stopWheel()
             if (wheelView.selectedPosition == loss){
-                //Toast.makeText(applicationContext, "*BANG*", Toast.LENGTH_LONG).show()//display the text of button1
-                //showDialog()
-                getRandomImage()
+                Toast.makeText(applicationContext, "YOU LOSE!", Toast.LENGTH_SHORT).show()//display text on loss
+                lossCounter++
+                var intent = intent
+                intent.putExtra("wc", winCounter)
+                intent.putExtra("lc", lossCounter)
+                finish()
+                startActivity(intent)
+                intent = Intent(baseContext, PopupActivity::class.java)
+                startActivity(intent)
             }
+            else if(!wonSlots.contains(wheelView.selectedPosition)){
+                //Toast.makeText(applicationContext, "You survived!", Toast.LENGTH_LONG).show()//display win text
+                winCounter++
+                wonSlots.add(wheelView.selectedPosition)
+            }
+
             else
-                Toast.makeText(applicationContext, "*click*", Toast.LENGTH_LONG).show()//display the text of button1
+                Toast.makeText(applicationContext, "You have already played this slot", Toast.LENGTH_LONG).show()//no easy point farming
+
+            System.out.println("Wins: " + winCounter)
+            System.out.println("Losses: " + lossCounter)
+
+            var winView = findViewById(R.id.winStats) as TextView
+            winView.setText("Wins: " + winCounter)
+
+
+            var lossView = findViewById(R.id.lossStats) as TextView
+            lossView.setText("Losses: " + lossCounter)
+
         }
 
 
         reset_button.setOnClickListener {
             val intent = intent
+            intent.putExtra("wc", winCounter)
+            intent.putExtra("lc", lossCounter)
             finish()
             startActivity(intent)
         }
@@ -148,63 +185,6 @@ class MainActivity : Activity() {
         }
     }
 
-    //image popup handler
-    private fun showDialog() {
-
-        // custom dialog
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.custom_dialog)
-
-        //random image from gallery TODO make it actually swap the image
-
-        // set the custom dialog components - text, image and button
-        val close = dialog.findViewById(R.id.btnClose) as ImageButton
-
-        // dialog close button. also resets game after closing
-        close.setOnClickListener {
-            dialog.dismiss()
-            val intent = intent
-            finish()
-            startActivity(intent)
-        }
-        dialog.getWindow().setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.show()
-    }
-
-    //TODO make select a random image WHY WON'T YOU WORK
-    fun getRandomImage(){
-        //val picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        var dirName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
-        var listOfFiles = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).list()
-        var picturesDirectory = File(dirName)
-        val listFiles = picturesDirectory.listFiles()
-
-
-//        for (file in listFiles)
-//        {
-//            System.out.println("file: " + file.getCanonicalPath())
-//        }
-
-
-        val r = Random()
-        val randomPicture = listFiles[r.nextInt(listFiles.size)]
-        val pictureUri = Uri.fromFile(randomPicture)
-
-        System.out.println("chosen file: " + randomPicture.toString())
-        System.out.println("file uri: " + pictureUri)
-
-
-        var bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), pictureUri)
-
-        //val f = File(getRealPathFromURI(pictureUri))
-        //val d = Drawable.createFromPath(pictureUri)
-        val image = findViewById(R.id.iv_main) as? ImageView
-        //image?.background = d
-        image?.setImageURI(null)
-        image?.setImageURI(pictureUri)
-
-    }
-
     //checks and requests device read perms
     fun isReadStoragePermissionGranted(): Boolean {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -218,20 +198,6 @@ class MainActivity : Activity() {
         }
         else { //permission is automatically granted on sdk<23 upon installation
             return true
-        }
-    }
-
-    private fun getRealPathFromURI(contentURI:Uri):String {
-        val cursor = getContentResolver().query(contentURI, null, null, null, null)
-        if (cursor == null)
-        { // Source is Dropbox or other similar local file path
-            return contentURI.getPath()
-        }
-        else
-        {
-            cursor.moveToFirst()
-            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            return cursor.getString(idx)
         }
     }
 
