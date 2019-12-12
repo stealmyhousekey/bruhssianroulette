@@ -16,6 +16,7 @@ import android.support.v4.app.SupportActivity
 import android.support.v4.app.SupportActivity.ExtraData
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.net.wifi.p2p.WifiP2pDeviceList
+import android.view.View
 import android.widget.ArrayAdapter
 
 
@@ -51,6 +52,9 @@ class NetworkActivity : AppCompatActivity() {
         val menuButton = findViewById(R.id.n_menu_button) as Button
         val pollButton = findViewById(R.id.poll_button) as Button
 
+        //disable menu button, because every android phone has a back button lol
+        //leaving the buttons in code for future debug reasons.
+        menuButton.setVisibility(View.GONE)
 
 
         mChannel = manager?.initialize(this, mainLooper, null)

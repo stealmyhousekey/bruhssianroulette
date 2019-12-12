@@ -39,7 +39,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //var randomImage = getRandomImage()
+
 
         var i = intent
         if(i.extras != null){
@@ -53,8 +53,8 @@ class MainActivity : Activity() {
         var lossView = findViewById(R.id.lossStats) as TextView
         lossView.setText("Losses: " + lossCounter)
 
-        System.out.println("Wins: " + winCounter)
-        System.out.println("Losses: " + lossCounter)
+        //println("Wins: " + winCounter)
+        //println("Losses: " + lossCounter)
 
         isReadStoragePermissionGranted()
 
@@ -65,14 +65,17 @@ class MainActivity : Activity() {
         var wonSlots = mutableListOf<Int>()
         val loss = losingItem()
 
+        //disable menu button, because every android phone has a back button lol
+        //leaving the buttons in code for future debug reasons.
+        menu_button.setVisibility(View.GONE)
 
         //create data for the adapter, assign all slots same randomized color
         val entries = ArrayList<Map.Entry<String, Int>>(ITEM_COUNT)
         val entry = MaterialColor.random(this, "\\D*_500$")
         val empty_entry = MaterialColor.random(this, "\\D*_500$")
 
-        println("color: " + entry)
-        println("Empty color: " + empty_entry)
+        //println("color: " + entry)
+        //println("Empty color: " + empty_entry)
 
         for (i in 0 until ITEM_COUNT) {
             entries.add(entry)
@@ -104,7 +107,6 @@ class MainActivity : Activity() {
         fire_button.setOnClickListener {
             wheelView.stopWheel()
             if (wheelView.selectedPosition == loss){
-                //Toast.makeText(applicationContext, "YOU LOSE!", Toast.LENGTH_SHORT).show()//display text on loss
                 lossCounter++
                 var intent = intent
                 intent.putExtra("wc", winCounter)
@@ -117,7 +119,6 @@ class MainActivity : Activity() {
 
             //if slot aleady played, mark as such with color and count
             else if(!wonSlots.contains(wheelView.selectedPosition)){
-                //Toast.makeText(applicationContext, "You survived!", Toast.LENGTH_LONG).show()//display win text
                 winCounter++
                 wonSlots.add(wheelView.selectedPosition)
                 entries[wheelView.selectedPosition] = empty_entry
