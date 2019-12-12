@@ -12,6 +12,7 @@
  - random picture polling and display
  - written entirely in kotlin, aside from wheelviewlib
  - compatible with devices as old as kitkat
+ - randomized cartoon-ish color schemes for school release
  
 ---
 
