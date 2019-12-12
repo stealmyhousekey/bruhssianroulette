@@ -18,14 +18,25 @@ android:layout_height="fill_parent">
         android:text="MENU" />
 
     <TextView
+        android:id="@+id/soonView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="MULTIPLAYER COMING IN FULL RELEASE"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
+
+    <TextView
         android:id="@+id/TEXT_STATUS_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/n_menu_button"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/soonView"
         android:layout_weight="1.0"
         android:gravity="center_horizontal"
         android:textColor="@color/grey_1000"
         android:textSize="20sp" />
+
+
 
 </LinearLayout>
