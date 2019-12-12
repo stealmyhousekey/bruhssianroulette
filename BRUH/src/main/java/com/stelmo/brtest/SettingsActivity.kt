@@ -14,7 +14,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         val menuButton = findViewById(R.id.s_menu_button) as Button
-        val infoString = "BRUHssian Roulette is a game revolving around the concept of funny, embarassing situations. \n \n" +
+        val infoString = "BRUHssian Roulette is a game revolving around the concept of funny, embarrassing situations. \n \n" +
                 "In this demo, you can test your luck in a single-player game by pressing the SOLO button on the home screen. \n \n" +
                 "From here, you'll be presented with the game screen, where you can either spin the wheel or press your luck right away by pressing the READY button. \n \n" +
                 "If none of the remaining slots feel safe, simply hit the RESET button to randomize the wheel and reset your odds to 1/6. \n \n" +
