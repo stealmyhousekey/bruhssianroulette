@@ -1,7 +1,6 @@
 # BRUHssian Roulette
-## Version: Alpha Demo
-
 ![FeatureGraphic](https://bitbucket.org/stealmyhousekey/bruhssianroulette/raw/d112c6ec6c3f4a39399f3731a2a44abd89dbf0ca/Graphics/feature_graphic.png)
+## Version: Alpha Demo
 
 ---
 
@@ -33,5 +32,8 @@ Luck, Roulette, Game, Singleplayer, Demo, Bruh, Videogame, Russian, Meme
 ---
 
 ### By Jacob Stelmachowske.  
- 
+
+
+#### Feature Graphic and App Icon located in /Graphics/
 #### Uses WheelView library by Luke Deighton [https://github.com/LukeDeighton/WheelView]
+
