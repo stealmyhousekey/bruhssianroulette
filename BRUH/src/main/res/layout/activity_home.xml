@@ -4,40 +4,50 @@
     android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/play_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:text="SOLO" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/multi_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/play_button"
-        android:text="MULTIPLAYER" />
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="BRUHssian Roulette"
+            android:textColor="#FFFFFF"
+            android:textSize="60sp" />
 
-    <Button
-        android:id="@+id/settings_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/multi_button"
-        android:text="ABOUT" />
+        <Button
+            android:id="@+id/play_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SOLO"
+            android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/play_button"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="sans-serif-smallcaps"
-        android:gravity="center_horizontal"
-        android:text="BRUHssian Roulette"
-        android:textColor="#FFFFFF"
-        android:textSize="60sp" />
+        <Button
+            android:id="@+id/multi_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="WifiP2P Test"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/settings_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ABOUT"
+            android:textSize="30sp" />
+    </LinearLayout>
 
 
 </RelativeLayout>
