@@ -69,6 +69,11 @@ class MainActivity : Activity() {
         //create data for the adapter, assign all slots same randomized color
         val entries = ArrayList<Map.Entry<String, Int>>(ITEM_COUNT)
         val entry = MaterialColor.random(this, "\\D*_500$")
+        val empty_entry = MaterialColor.random(this, "\\D*_500$")
+
+        println("color: " + entry)
+        println("Empty color: " + empty_entry)
+
         for (i in 0 until ITEM_COUNT) {
             entries.add(entry)
         }
@@ -82,6 +87,7 @@ class MainActivity : Activity() {
             val selectedEntry = (parent.adapter as MaterialColorAdapter).getItem(position)
             parent.setSelectionColor(getContrastColor(selectedEntry))
         }
+
 
         //used to debug
         wheelView.onWheelItemClickListener = WheelView.OnWheelItemClickListener { parent, position, isSelected ->
@@ -108,10 +114,15 @@ class MainActivity : Activity() {
                 intent = Intent(baseContext, PopupActivity::class.java)
                 startActivity(intent)
             }
+
+            //if slot aleady played, mark as such with color and count
             else if(!wonSlots.contains(wheelView.selectedPosition)){
                 //Toast.makeText(applicationContext, "You survived!", Toast.LENGTH_LONG).show()//display win text
                 winCounter++
                 wonSlots.add(wheelView.selectedPosition)
+                entries[wheelView.selectedPosition] = empty_entry
+                wheelView.adapter = MaterialColorAdapter(entries)
+
             }
 
             else
