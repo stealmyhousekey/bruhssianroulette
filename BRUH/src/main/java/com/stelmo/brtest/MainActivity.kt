@@ -98,7 +98,7 @@ class MainActivity : Activity() {
         fire_button.setOnClickListener {
             wheelView.stopWheel()
             if (wheelView.selectedPosition == loss){
-                Toast.makeText(applicationContext, "YOU LOSE!", Toast.LENGTH_SHORT).show()//display text on loss
+                //Toast.makeText(applicationContext, "YOU LOSE!", Toast.LENGTH_SHORT).show()//display text on loss
                 lossCounter++
                 var intent = intent
                 intent.putExtra("wc", winCounter)

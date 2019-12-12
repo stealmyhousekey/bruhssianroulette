@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/play_button"
         android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-smallcaps"
         android:gravity="center_horizontal"
         android:text="BRUHssian Roulette"
         android:textColor="#FFFFFF"
