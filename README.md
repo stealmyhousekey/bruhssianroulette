@@ -1,5 +1,5 @@
 # BRUHssian Roulette
-![FeatureGraphic](https://bitbucket.org/stealmyhousekey/bruhssianroulette/raw/d112c6ec6c3f4a39399f3731a2a44abd89dbf0ca/Graphics/feature_graphic.png)
+![FeatureGraphic](https://raw.githubusercontent.com/stealmyhousekey/bruhssianroulette/master/Graphics/feature_graphic.png)
 ## Version: Alpha Demo
 
 ---
